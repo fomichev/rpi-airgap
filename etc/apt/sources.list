@@ -1,0 +1,2 @@
+deb https://archive.raspbian.org/raspbian/ stretch main contrib non-free rpi
+deb https://archive.raspberrypi.org/debian/ stretch main ui
