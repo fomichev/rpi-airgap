@@ -17,6 +17,7 @@ RUN apt-get install sudo
 RUN groupadd -r pi
 RUN useradd -r -g pi pi
 RUN usermod -a -G sudo,staff,kmem,plugdev pi
+RUN passwd -d pi
 
 # install firmware and boot files
 RUN apt-get install -y git

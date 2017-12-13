@@ -28,6 +28,7 @@ Export rootfs from the docker container:
 ```
 $ docker create --name=rpi rpi /bin/bash
 $ docker export rpi > rootfs.tar
+$ docker rm rpi
 ```
 
 Prepare proper image:
@@ -39,5 +40,5 @@ $ sudo ./mkimg.sh rootfs.tar rpi.img
 Flash the image:
 
 ```
-dd bs=4M if=rpi.img of=/dev/sdX conv=fsync
+sudo dd bs=4M if=rpi.img of=/dev/mmcblk0 conv=fsync
 ```
