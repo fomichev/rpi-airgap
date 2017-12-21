@@ -18,8 +18,10 @@ RUN groupadd -r pi
 RUN useradd -r -g pi pi
 RUN usermod -a -G sudo,staff,kmem,plugdev pi
 RUN passwd -d pi
+RUN mkdir /home/pi
+RUN chown pi /home/pi
+RUN chsh -s /bin/bash pi
 
-# install firmware and boot files
 RUN apt-get install -y git
 RUN git clone --depth 1 https://github.com/raspberrypi/firmware.git
 RUN cp -R firmware/boot /
@@ -34,7 +36,7 @@ RUN apt-get install -y raspi-config
 RUN apt-get install -y -o Dpkg::Options::="--force-confdef" usbmount
 
 # compiler & libs
-RUN apt-get install -y libboost-all-dev libssl1.0-dev libpcre3-dev automake autoconf rng-tools golang
+RUN apt-get install -y libboost-all-dev libssl1.0-dev libpcre3-dev automake autoconf
 
 WORKDIR /root
 
