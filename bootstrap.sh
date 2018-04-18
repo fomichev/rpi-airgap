@@ -24,8 +24,6 @@ cp $(which "qemu-arm-static") $P/usr/bin
 chmod 0755 $P/usr/bin/qemu-arm-static
 chroot $D /debootstrap/debootstrap --second-stage
 rm -rf $P/debootstrap
-# apt-get does setuid(apt) and fails to verify signature otherwise
-chmod -R 0755 $P/etc/apt
 
 tar -C $P -czvf $O .
 chown $USER $O

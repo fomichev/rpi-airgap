@@ -4,6 +4,9 @@ ADD bootstrap.tar.gz /
 COPY --chown=root:root etc/ /etc/
 COPY --chown=root:root boot/ /boot/
 
+# apt-get does setuid(apt) and fails to verify signature otherwise
+RUN chmod -R 0755 /etc/apt
+
 RUN update-ca-certificates
 
 ENV DEBIAN_FRONTEND noninteractive
