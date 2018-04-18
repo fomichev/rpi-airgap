@@ -1,6 +1,12 @@
 Build and install binfmt-support and qemu-user-static.
 This allows running arm binaries via qemu transparently.
 
+On debian:
+
+```
+sudo apt-get install debootstrap e2fsprogs dosfstools qemu-user-static
+```
+
 On arch:
 
 ```
@@ -8,6 +14,11 @@ $ sudo pacman -Sy debootstrap e2fsprogs dosfstools
 $ git clone https://aur.archlinux.org/binfmt-support.git && cd binfmt-support && makepkg -si
 $ git clone https://aur.archlinux.org/qemu-arm-static.git && cd qemu-arm-static && makepkg -si
 $ git clone https://aur.archlinux.org/multipath-tools.git && cd multipath-tools && makepkg -si
+```
+
+Enable ARM QEMU binfmt:
+
+```
 $ update-binfmts --enable qemu-arm
 ```
 

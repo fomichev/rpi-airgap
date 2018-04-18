@@ -27,10 +27,12 @@ p
 w
 EOF
 
-devs=$(kpartx -va $IMG | grep add | sed 's/.*\(loop[^ ]*\).*/\1/')
-boot_dev=$(echo $devs | cut -f1 -d' ')
-root_dev=$(echo $devs | cut -f2 -d' ')
-echo $root_dev $boot_dev
+kpartx -va $IMG
+kpartx -l $IMG
+
+boot_dev=$(kpartx -l $IMG | head -n1 | cut -d' ' -f1)
+root_dev=$(kpartx -l $IMG | tail -n1 | cut -d' ' -f1)
+echo "root='$root_dev' boot='$boot_dev'"
 [ "$boot_dev" = "" ] && exit 1
 [ "$root_dev" = "" ] && exit 1
 
