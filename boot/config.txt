@@ -3,3 +3,7 @@ dtoverlay=pi3-disable-wifi
 dtoverlay=pi3-disable-bt
 dtparam=audio=off
 enable_uart=1
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=480 320 60 6 0 0 0
