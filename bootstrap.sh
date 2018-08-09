@@ -18,7 +18,7 @@ debootstrap \
 	    --keyring ./rpi.gpg \
 	    --foreign \
 	    --include ca-certificates,apt-transport-https,curl \
-	    stretch $D http://archive.raspbian.org/raspbian
+	    stable $D https://archive.raspbian.org/raspbian
 
 cp $(which "qemu-arm-static") $P/usr/bin
 chmod 0755 $P/usr/bin/qemu-arm-static
