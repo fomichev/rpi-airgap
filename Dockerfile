@@ -23,6 +23,8 @@ RUN mkdir /home/pi
 RUN chown pi /home/pi
 RUN chsh -s /bin/bash pi
 
+COPY --chown=pi:pi home/pi/ /home/pi/
+
 RUN apt-get install -y git
 RUN git clone --depth 1 https://github.com/raspberrypi/firmware.git
 RUN cp -R firmware/boot /
@@ -49,5 +51,9 @@ RUN apt-get install -y electrum
 RUN apt-get install -y yubikey-personalization
 RUN curl -LO https://raw.githubusercontent.com/a-dma/yubitouch/master/yubitouch.sh
 RUN chmod +x ./yubitouch.sh
+
+# fat fsck
+
+RUN apt-get install -y dosfstools
 
 RUN apt-get clean
