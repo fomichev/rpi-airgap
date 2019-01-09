@@ -5,6 +5,8 @@ COPY --chown=root:root etc/ /etc/
 COPY --chown=root:root boot/ /boot/
 
 # apt-get does setuid(apt) and fails to verify signature otherwise
+ADD trusted.gpg /etc/apt/trusted.gpg
+RUN chown _apt /etc/apt/trusted.gpg
 RUN chmod -R 0755 /etc/apt
 
 RUN update-ca-certificates

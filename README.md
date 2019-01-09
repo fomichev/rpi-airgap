@@ -16,10 +16,10 @@ git clone https://aur.archlinux.org/qemu-arm-static.git && cd qemu-arm-static &&
 git clone https://aur.archlinux.org/multipath-tools.git && cd multipath-tools && makepkg -si
 ```
 
-Enable ARM QEMU binfmt:
+Enable ARM binfmt:
 
 ```
-update-binfmts --enable qemu-arm
+update-binfmts --enable arm
 ```
 
 Run bootstrap.sh to create initial debootstrapped image:
@@ -52,4 +52,10 @@ Flash the image:
 
 ```
 sudo dd bs=4M if=rpi.img of=/dev/mmcblk0 conv=fsync
+```
+
+Remove docker leftovers:
+
+```
+docker system prune -a
 ```
