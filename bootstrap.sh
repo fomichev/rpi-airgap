@@ -7,7 +7,7 @@ D=bootstrap
 P=$PWD/$D
 O=$PWD/bootstrap.tar.gz
 
-rm ./trusted.gpg
+rm -f ./trusted.gpg
 gpg --no-default-keyring --keyring ./trusted.gpg --fingerprint
 curl -LO https://archive.raspbian.org/raspbian.public.key
 gpg --no-default-keyring --keyring ./trusted.gpg --import raspbian.public.key
@@ -16,7 +16,6 @@ gpg --no-default-keyring --keyring ./trusted.gpg --import raspberrypi.gpg.key
 
 debootstrap \
 	    --arch armhf \
-	    --no-check-valid-until \
 	    --keyring ./trusted.gpg \
 	    --foreign \
 	    --include ca-certificates,apt-transport-https,curl \
