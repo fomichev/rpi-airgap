@@ -26,6 +26,7 @@ Run bootstrap.sh to create initial debootstrapped image:
 
 ```
 sudo ./bootstrap.sh
+sudo chown $USER bootstrap.tar.gz trusted.gpg trusted.gpg~
 ```
 
 Create docker image (finishes bootstrap and installs required software):
