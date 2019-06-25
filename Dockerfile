@@ -34,6 +34,13 @@ RUN cp -R firmware/hardfp/opt /
 RUN cp -R firmware/modules /lib
 RUN rm -rf firmware
 
+# create usbmount mount points
+RUN mkdir -p /media/usb0 /media/usb1 /media/usb2 /media/usb3 \
+             /media/usb4 /media/usb5 /media/usb6 /media/usb7
+RUN chown -R pi /media
+
+WORKDIR /root
+
 # install raspi-config
 RUN apt-get install -y --allow-unauthenticated raspi-config
 
@@ -43,19 +50,23 @@ RUN apt-get install -y -o Dpkg::Options::="--force-confdef" usbmount
 # compiler & libs
 RUN apt-get install -y libboost-all-dev libssl1.0-dev libpcre3-dev automake autoconf
 
-WORKDIR /root
-
 # electrum
 RUN apt-get install -y electrum
 
 # yubikey
-
 RUN apt-get install -y yubikey-personalization
 RUN curl -LO https://raw.githubusercontent.com/a-dma/yubitouch/master/yubitouch.sh
 RUN chmod +x ./yubitouch.sh
 
 # fat fsck
-
 RUN apt-get install -y dosfstools
+
+# go
+RUN curl -LO https://dl.google.com/go/go1.12.6.linux-armv6l.tar.gz
+RUN tar -C /usr/local -xzf go*.linux-armv6l.tar.gz
+ENV PATH="${PATH}:/usr/local/go/bin"
+
+# dice-seed (download only, compilation doesn't work in qemu)
+RUN go get -v -d github.com/fomichev/dice-seed
 
 RUN apt-get clean
