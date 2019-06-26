@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [[ ! $# -eq 1 ]]; then
+	echo "usage: gpg-enc <file>"
+	exit 1
+fi
+file="$1"
+new_file="${file}.gpg"
+
+gpg --output "$new_file" --encrypt --recipient s@fomichev.me "$file"
+echo "Encrypted '$file' into '$new_file'"
+rm -i "$file"

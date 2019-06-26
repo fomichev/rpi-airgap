@@ -2,7 +2,10 @@ FROM scratch
 ADD bootstrap.tar.gz /
 
 COPY --chown=root:root etc/ /etc/
+RUN chmod -R 0755 /etc/default
+
 COPY --chown=root:root boot/ /boot/
+COPY --chown=root:root bin/ /bin/
 
 # apt-get does setuid(apt) and fails to verify signature otherwise
 ADD trusted.gpg /etc/apt/trusted.gpg
@@ -41,6 +44,9 @@ RUN chown -R pi /media
 
 WORKDIR /root
 
+# install better console fonts
+RUN apt-get install -y kbd
+
 # install raspi-config
 RUN apt-get install -y --allow-unauthenticated raspi-config
 
@@ -68,5 +74,8 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 
 # dice-seed (download only, compilation doesn't work in qemu)
 RUN go get -v -d github.com/fomichev/dice-seed
+
+# post install script
+COPY --chown=root:root postinst.sh /root/
 
 RUN apt-get clean

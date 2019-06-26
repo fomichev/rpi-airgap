@@ -61,3 +61,10 @@ Remove docker leftovers:
 ```
 docker system prune -a
 ```
+
+On the host, to use Go stuff:
+
+```
+sudo /root/postinst.sh
+dice-seed | tee /tmp/seed
+```
