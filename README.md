@@ -47,6 +47,7 @@ Prepare proper image:
 
 ```
 sudo ./mkimg.sh rootfs.tar rpi.img
+sudo chown $USER rootfs.tar rpi.img
 ```
 
 Flash the image:
