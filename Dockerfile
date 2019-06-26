@@ -1,11 +1,13 @@
 FROM scratch
 ADD bootstrap.tar.gz /
 
+COPY --chown=root:root boot/ /boot/
+
 COPY --chown=root:root etc/ /etc/
 RUN chmod -R 0755 /etc/default
 
-COPY --chown=root:root boot/ /boot/
 COPY --chown=root:root bin/ /bin/
+RUN chmod 0755 /etc/default/gpg-*
 
 # apt-get does setuid(apt) and fails to verify signature otherwise
 ADD trusted.gpg /etc/apt/trusted.gpg
@@ -76,6 +78,6 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 RUN go get -v -d github.com/fomichev/dice-seed
 
 # post install script
-COPY --chown=root:root postinst.sh /root/
+COPY --chown=root:root postinst.sh /
 
 RUN apt-get clean
