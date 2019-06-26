@@ -1,0 +1,11 @@
+#!/bin/bash
+
+where=${1-/home/pi}
+
+(cd $where && find -type f -not -name SHA512SUM \
+	| xargs sha512sum > SHA512SUM)
+
+cd /
+pkill -9 gpg-agent
+sudo umount $where
+sync

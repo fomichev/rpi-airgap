@@ -1,0 +1,24 @@
+#!/bin/bash
+
+what=${1-/dev/sda}
+where=${2-/home/pi}
+
+if ! mount | grep -q /tmp; then
+	echo "Mounting tmpfs"
+	sudo mount -t tmpfs tmpfs /tmp
+fi
+
+cp /home/pi/.gnupg/gpg.conf /tmp
+
+echo "Mounting $what to $where"
+sudo mount $what $where
+
+echo "Updating GPG config from root"
+cp /tmp/gpg.conf /home/pi/.gnupg/gpg.conf
+
+echo "Restarting GPG agent"
+pkill gpg-agent
+gpg-agent --daemon
+
+echo "Verifying checksum"
+(cd $where && sha512sum -c SHA512SUM)

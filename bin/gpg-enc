@@ -5,7 +5,7 @@ if [[ ! $# -eq 1 ]]; then
 	exit 1
 fi
 file="$1"
-new_file="${file}.gpg"
+new_file="$HOME/$(basename ${file}.gpg)"
 
 gpg --output "$new_file" --encrypt --recipient s@fomichev.me "$file"
 echo "Encrypted '$file' into '$new_file'"

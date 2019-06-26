@@ -5,7 +5,7 @@ if [[ ! $# -eq 1 ]]; then
 	exit 1
 fi
 file="$1"
-new_file="${file%.gpg}"
+new_file="/tmp/$(basename ${file%.gpg})"
 
 gpg --output "$new_file" --decrypt "$file"
 echo "Decrypted '$file' into '$new_file'"

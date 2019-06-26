@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+
+import fcntl, select, struct
+
+with open('/dev/hwring', 'rb') as hw, open('/dev/random') as rnd:
+	while True:
+		d = hw.read(512)
+		fcntl.ioctl(rnd, 0x40085203, struct.pack('ii', 4*len(d), len(d))+d)
+		select.select([], [rnd], [])

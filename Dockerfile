@@ -7,7 +7,7 @@ COPY --chown=root:root etc/ /etc/
 RUN chmod -R 0755 /etc/default
 
 COPY --chown=root:root bin/ /bin/
-RUN chmod 0755 /etc/default/gpg-*
+RUN chmod 0755 /bin/gpg-*
 
 # apt-get does setuid(apt) and fails to verify signature otherwise
 ADD trusted.gpg /etc/apt/trusted.gpg
@@ -65,6 +65,7 @@ RUN apt-get install -y electrum
 RUN apt-get install -y yubikey-personalization
 RUN curl -LO https://raw.githubusercontent.com/a-dma/yubitouch/master/yubitouch.sh
 RUN chmod +x ./yubitouch.sh
+RUN mv ./yubitouch.sh /bin/yubitouch.sh
 
 # fat fsck
 RUN apt-get install -y dosfstools
