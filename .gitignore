@@ -1,3 +1,5 @@
 bootstrap.tar.gz
 rootfs.tar
 rpi.img
+trusted.gpg
+trusted.gpg~
