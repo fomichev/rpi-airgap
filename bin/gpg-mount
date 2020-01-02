@@ -17,7 +17,7 @@ echo "Updating GPG config from root"
 cp /tmp/gpg.conf /home/pi/.gnupg/gpg.conf
 
 echo "Restarting GPG agent"
-pkill gpg-agent
+pkill -u pi gpg-agent
 gpg-agent --daemon
 
 echo "Verifying checksum"
