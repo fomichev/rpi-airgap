@@ -11,27 +11,31 @@ On arch:
 
 ```
 sudo pacman -Sy debootstrap e2fsprogs dosfstools
-git clone https://aur.archlinux.org/binfmt-support.git && cd binfmt-support && makepkg -si
 git clone https://aur.archlinux.org/qemu-arm-static.git && cd qemu-arm-static && makepkg -si
+
+# kpartx
 git clone https://aur.archlinux.org/multipath-tools.git && cd multipath-tools && makepkg -si
 ```
 
 Enable ARM binfmt:
 
 ```
-update-binfmts --enable arm
+echo ":arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:" | sudo tee /etc/binfmt.d/qemu-arm.conf
+
+sudo systemctl restart systemd-binfmt
 ```
 
 Run bootstrap.sh to create initial debootstrapped image:
 
 ```
 sudo ./bootstrap.sh
-sudo chown $USER bootstrap.tar.gz trusted.gpg trusted.gpg~
+sudo chown $USER bootstrap.tar.gz trusted.gpg
 ```
 
 Create docker image (finishes bootstrap and installs required software):
 
 ```
+sudo systemctl start docker.service
 docker build -t rpi .
 ```
 
@@ -60,6 +64,7 @@ Remove docker leftovers:
 
 ```
 docker system prune -a
+sudo systemctl stop docker.service
 ```
 
 On the host, to use Go stuff:

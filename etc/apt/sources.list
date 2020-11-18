@@ -1,2 +1,2 @@
-deb https://archive.raspbian.org/raspbian/ stretch main contrib non-free rpi
-deb https://archive.raspberrypi.org/debian/ stretch main ui
+deb http://archive.raspbian.org/raspbian/ buster main contrib non-free rpi
+deb http://archive.raspberrypi.org/debian/ buster main ui

@@ -6,6 +6,7 @@ set -x
 D=bootstrap
 P=$PWD/$D
 O=$PWD/bootstrap.tar.gz
+R=buster # if changed, make sure to update etc/apt/sources.list
 
 rm -f ./trusted.gpg
 gpg --no-default-keyring --keyring ./trusted.gpg --fingerprint
@@ -19,7 +20,7 @@ debootstrap \
 	    --keyring ./trusted.gpg \
 	    --foreign \
 	    --include ca-certificates,apt-transport-https,curl \
-	    stable $D http://mirrordirector.raspbian.org/raspbian
+	    $R $D http://mirrordirector.raspbian.org/raspbian
 
 cp $(which "qemu-arm-static") $P/usr/bin
 chmod 0755 $P/usr/bin/qemu-arm-static
