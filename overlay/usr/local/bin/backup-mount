@@ -1,0 +1,14 @@
+#!/bin/bash
+
+what=${1-/dev/sda}
+where=${2-/media}
+
+echo "Mounting $what to $where"
+sudo mount $what $where
+
+echo "Restarting GPG agent"
+pkill -u pi gpg-agent
+gpg-agent --daemon
+
+echo "Verifying checksum"
+(cd $where && sha512sum -c SHA512SUM | grep -v OK)

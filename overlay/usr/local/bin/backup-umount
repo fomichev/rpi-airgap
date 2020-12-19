@@ -1,6 +1,6 @@
 #!/bin/bash
 
-where=${1-/home/pi}
+where=${1-/media}
 
 (cd $where && find -type f -not -name SHA512SUM \
 	| xargs sha512sum > SHA512SUM)

@@ -6,7 +6,7 @@ if [[ $# -lt 1 ]]; then
 fi
 
 for file in "$@"; do
-	new_file="$HOME/$(basename ${file}.gpg)"
+	new_file="./$(basename ${file}.gpg)"
 
 	gpg --output "$new_file" --encrypt --recipient s@fomichev.me "$file"
 	echo "Encrypted '$file' into '$new_file'"
