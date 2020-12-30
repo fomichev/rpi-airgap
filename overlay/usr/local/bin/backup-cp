@@ -2,7 +2,7 @@
 
 what=${1-/dev/sdb}
 where=${2-/tmp/backup/}
-souce=/media/
+source=/media/
 
 echo "Mounting $what to $where"
 mkdir -p $where
@@ -10,4 +10,4 @@ sudo mount $what $where
 sudo chown pi $where
 
 echo "Backing up..."
-rsync -av --delete $source $where
+rsync -av --exclude='lost+found' --delete $source $where
